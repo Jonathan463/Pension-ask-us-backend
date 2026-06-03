@@ -1,0 +1,33 @@
+.git
+.gitignore
+.idea
+.vscode
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.venv
+venv
+env
+
+# Frontend lives in its own image.
+web
+
+# Local data — let the container produce its own.
+pension_ask_us/data
+data
+
+# Build artefacts / local env.
+dist
+build
+*.egg-info
+.env
+.env.local
+
+# Docs / non-code files not needed inside the image.
+*.pdf
+README*.md
