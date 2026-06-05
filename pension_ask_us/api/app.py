@@ -11,8 +11,10 @@ from ..schemas import (
     AskResponse,
     IngestRequest,
     IngestResponse,
+    ShareRequest,
+    ShareResponse,
 )
-from ..services import AskService, IngestService
+from ..services import AskService, IngestService, ShareService
 from ..vector_store.store import VectorStore
 from . import dependencies as deps
 from .exception_handlers import register_exception_handlers
@@ -54,6 +56,13 @@ def create_app() -> FastAPI:
     ) -> IngestResponse:
         urls = payload.urls if payload else None
         return service.ingest(urls=urls)
+
+    @app.post("/share", response_model=ShareResponse)
+    def share(
+        payload: ShareRequest,
+        service: ShareService = Depends(deps.get_share_service),
+    ) -> ShareResponse:
+        return service.share(payload)
 
     return app
 
