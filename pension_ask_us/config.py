@@ -11,20 +11,70 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 DEFAULT_ARTICLE_URLS: List[str] = [
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/category/?articlecategory=Annual%20Allowance&id=CAT-01824&parentid=",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04392/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04362/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04373/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04396/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04372/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04368/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04371/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04382/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04509/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-27957/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-02658/en-us",
-    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04366/en-us",
-    "https://www.nhsbsa.nhs.uk/current-processing-times-nhs-pensions",
+    # --- Account, membership, online services (5) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04454/en-us",  # Where can I find my membership number?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-28696/en-us",  # How do I register for My NHS Pension?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04244/en-us",  # How can I get an estimate of my NHS pension benefits?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-02755/en-us",  # How can I access my Total Reward Statement (TRS)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-02726/en-us",  # What is a Total Reward Statement (TRS)?
+
+    # --- Joining / opting out (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04447/en-us",  # Who can join the NHS Pension Scheme?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-27795/en-us",  # How do I opt out of the NHS Pension Scheme?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04551/en-us",  # How do I request a membership statement?
+
+    # --- Contributions (5) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04392/en-us",  # What are pension contributions?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04362/en-us",  # Which payments are pensionable?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04372/en-us",  # What is salary sacrifice?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04509/en-us",  # Can I get a refund of my NHS pension contributions?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04480/en-us",  # Can I pay pension contributions while on sick leave?
+
+    # --- Annual Allowance (5) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05035/en-us",  # What is annual allowance (AA)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05041/en-us",  # What is the annual allowance (AA) charge?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05029/en-us",  # What is tapered annual allowance (AA)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05031/en-us",  # What is money purchase annual allowance?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05067/en-us",  # How is my NHS Pension benefit growth calculated for AA?
+
+    # --- Lifetime allowance / tax (2) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05015/en-us",  # What is lifetime allowance (LTA)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05006/en-us",  # What affected my LTA calculation?
+
+    # --- Increasing your pension (AVCs, AP, added years) (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04929/en-us",  # What is additional pension (AP)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04958/en-us",  # What are added years (AY)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04123/en-us",  # What are money purchase AVCs (MPAVC)?
+
+    # --- Retirement, abatement, ERRBO (4) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04177/en-us",  # What is abatement?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04170/en-us",  # How is abatement calculated?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04128/en-us",  # What is early retirement reduction buy out (ERRBO)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04108/en-us",  # What does 'recycling lump sums' mean?
+
+    # --- Ill health (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05113/en-us",  # Can I take my pension on the grounds of ill health?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05114/en-us",  # What is the process for an ill health application?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05130/en-us",  # What is a Tier 1 and Tier 2 ill health pension?
+
+    # --- Death benefits & nominations (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-31056/en-us",  # How do I make a nomination for an adult dependant's pension?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04993/en-us",  # What is an adult dependant's pension?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04188/en-us",  # Will you accept an interim death certificate?
+
+    # --- Transfers in/out (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04275/en-us",  # Can I transfer other pension benefits into the NHS Pension Scheme?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04283/en-us",  # Can I transfer my pension benefits out of the NHS Pension Scheme?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-04274/en-us",  # How do I transfer pension benefits into the NHS Pension Scheme?
+
+    # --- McCloud / 2015 remedy (3) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-25794/en-us",  # What is the public service pensions remedy (McCloud)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-29194/en-us",  # What is a Remediable Service Statement (RSS)?
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-28944/en-us",  # What is rollback of remedy period service?
+
+    # --- Life events / operational (2) ---
+    "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-05155/en-us",  # What is pension sharing? (divorce)
+    "https://www.nhsbsa.nhs.uk/current-processing-times-nhs-pensions",  # Operational SLAs (off-portal)
 ]
 
 
