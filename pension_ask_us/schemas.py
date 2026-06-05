@@ -61,3 +61,17 @@ class IngestRequest(BaseModel):
 class IngestResponse(BaseModel):
     articles_ingested: int
     chunks_indexed: int
+
+
+class ShareRequest(BaseModel):
+    recipient: str = Field(..., min_length=3, description="Recipient email address")
+    question: str = Field(..., min_length=1)
+    article_title: str = Field(..., min_length=1)
+    article_url: str = Field(..., min_length=1)
+    note: Optional[str] = Field(default=None, max_length=2000)
+
+
+class ShareResponse(BaseModel):
+    recipient: str
+    article_url: str
+    delivered_via: str

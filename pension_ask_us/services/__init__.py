@@ -6,5 +6,6 @@ retrieval -> generation pipelines, ingestion runs) so that transport layers
 """
 from .ask_service import AskService
 from .ingest_service import IngestService
+from .share_service import ShareService
 
-__all__ = ["AskService", "IngestService"]
+__all__ = ["AskService", "IngestService", "ShareService"]
