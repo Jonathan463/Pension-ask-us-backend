@@ -65,6 +65,27 @@ class IngestionFailedError(ServiceError):
     error_code = "ingestion_failed"
 
 
+class InvalidEmailError(ServiceError):
+    """The supplied recipient address is missing or malformed."""
+
+    status_code = 400
+    error_code = "invalid_email"
+
+
+class NoArticleToShareError(ServiceError):
+    """The /ask response had no top article available to share."""
+
+    status_code = 409
+    error_code = "no_article_to_share"
+
+
+class EmailDeliveryError(PensionAskUsError):
+    """The configured email backend failed to send the message."""
+
+    status_code = 502
+    error_code = "email_delivery_failed"
+
+
 # ----- Ingestion-pipeline layer -----
 
 class IngestionError(PensionAskUsError):
