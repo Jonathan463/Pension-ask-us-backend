@@ -1,11 +1,8 @@
-"""Email-sender abstraction with a console (log-only) implementation."""
+"""Email-sender abstraction."""
 from __future__ import annotations
 
-import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-
-logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -24,20 +21,3 @@ class EmailSender(ABC):
     @abstractmethod
     def send(self, message: EmailMessage) -> None:  # pragma: no cover - interface
         """Deliver ``message`` or raise :class:`EmailDeliveryError`."""
-
-
-class ConsoleEmailSender(EmailSender):
-    """Log emails instead of sending them.
-
-    Intended for local development and demos so the share endpoint is
-    exercisable end-to-end without real SMTP credentials.
-    """
-
-    def send(self, message: EmailMessage) -> None:
-        logger.info(
-            "[email/console] from=%s to=%s subject=%r\n%s",
-            message.sender,
-            message.recipient,
-            message.subject,
-            message.body,
-        )

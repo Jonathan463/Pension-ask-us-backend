@@ -8,7 +8,8 @@ from __future__ import annotations
 from functools import lru_cache
 
 from ..config import Settings, get_settings
-from ..email import ConsoleEmailSender, EmailSender, SmtpEmailSender
+from ..email import EmailSender, SmtpEmailSender
+from ..exceptions import EmailNotConfiguredError
 from ..embeddings.embedder import Embedder, SentenceTransformerEmbedder
 from ..generation.generator import (
     AnswerGenerator,
@@ -102,28 +103,25 @@ def get_ingest_service() -> IngestService:
 @lru_cache(maxsize=1)
 def get_email_sender() -> EmailSender:
     s = _settings()
-    if s.email_mode.lower() == "smtp":
-        if not (s.smtp_username and s.smtp_password):
-            # Misconfigured -> fall back to console so the server still boots.
-            return ConsoleEmailSender()
-        return SmtpEmailSender(
-            host=s.smtp_host,
-            port=s.smtp_port,
-            username=s.smtp_username,
-            password=s.smtp_password,
-            use_tls=s.smtp_use_tls,
+    if not (s.smtp_username and s.smtp_password):
+        raise EmailNotConfiguredError(
+            "SMTP credentials are not configured. Set PENSION_SMTP_USERNAME "
+            "and PENSION_SMTP_PASSWORD in your environment.",
         )
-    return ConsoleEmailSender()
+    return SmtpEmailSender(
+        host=s.smtp_host,
+        port=s.smtp_port,
+        username=s.smtp_username,
+        password=s.smtp_password,
+        use_tls=s.smtp_use_tls,
+    )
 
 
 @lru_cache(maxsize=1)
 def get_share_service() -> ShareService:
     s = _settings()
-    sender = get_email_sender()
-    from_address = s.email_from or s.smtp_username or "no-reply@pension-ask-us.local"
-    backend_name = "smtp" if isinstance(sender, SmtpEmailSender) else "console"
+    from_address = s.email_from or s.smtp_username or ""
     return ShareService(
-        sender=sender,
+        sender=get_email_sender(),
         from_address=from_address,
-        backend_name=backend_name,
     )

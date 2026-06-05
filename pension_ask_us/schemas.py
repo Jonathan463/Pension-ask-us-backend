@@ -74,4 +74,3 @@ class ShareRequest(BaseModel):
 class ShareResponse(BaseModel):
     recipient: str
     article_url: str
-    delivered_via: str

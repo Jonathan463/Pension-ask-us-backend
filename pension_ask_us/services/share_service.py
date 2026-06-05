@@ -20,11 +20,9 @@ class ShareService:
         *,
         sender: EmailSender,
         from_address: str,
-        backend_name: str,
     ) -> None:
         self._sender = sender
         self._from = from_address
-        self._backend_name = backend_name
 
     def share(self, payload: ShareRequest) -> ShareResponse:
         recipient = (payload.recipient or "").strip()
@@ -47,7 +45,6 @@ class ShareService:
         return ShareResponse(
             recipient=recipient,
             article_url=payload.article_url,
-            delivered_via=self._backend_name,
         )
 
     @staticmethod

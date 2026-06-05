@@ -112,8 +112,7 @@ class Settings(BaseSettings):
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
 
-    # Email delivery (used by POST /share)
-    email_mode: str = "console"
+    # Email delivery (used by POST /share). SMTP is the only backend.
     email_from: str | None = None
     smtp_host: str = "smtp.gmail.com"
     smtp_port: int = 587

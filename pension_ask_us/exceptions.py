@@ -86,6 +86,13 @@ class EmailDeliveryError(PensionAskUsError):
     error_code = "email_delivery_failed"
 
 
+class EmailNotConfiguredError(PensionAskUsError):
+    """SMTP credentials are missing from configuration."""
+
+    status_code = 503
+    error_code = "email_not_configured"
+
+
 # ----- Ingestion-pipeline layer -----
 
 class IngestionError(PensionAskUsError):
