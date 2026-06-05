@@ -112,6 +112,15 @@ class Settings(BaseSettings):
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
 
+    # Email delivery (used by POST /share)
+    email_mode: str = "console"
+    email_from: str | None = None
+    smtp_host: str = "smtp.gmail.com"
+    smtp_port: int = 587
+    smtp_username: str | None = None
+    smtp_password: str | None = None
+    smtp_use_tls: bool = True
+
 
 def get_settings() -> Settings:
     """Factory used as a FastAPI dependency."""
