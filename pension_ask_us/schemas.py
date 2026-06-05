@@ -48,6 +48,7 @@ class AskResponse(BaseModel):
     question: str
     answer: str
     sources: List[Source]
+    top_source: Optional[Source] = None
 
 
 class IngestRequest(BaseModel):

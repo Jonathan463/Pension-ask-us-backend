@@ -41,7 +41,13 @@ class AskService:
         retrieved = self._retrieval.retrieve(cleaned, top_k=top_k)
         answer = self._generator.generate(cleaned, retrieved)
         sources = self._build_sources(retrieved)
-        return AskResponse(question=cleaned, answer=answer, sources=sources)
+        top_source = self._pick_top_source(sources)
+        return AskResponse(
+            question=cleaned,
+            answer=answer,
+            sources=sources,
+            top_source=top_source,
+        )
 
     @staticmethod
     def _build_sources(retrieved: List[RetrievedChunk]) -> List[Source]:
@@ -53,3 +59,10 @@ class AskService:
             if existing is None or candidate.score > existing.score:
                 unique[candidate.url] = candidate
         return list(unique.values())
+
+    @staticmethod
+    def _pick_top_source(sources: List[Source]) -> Optional[Source]:
+        """Return the single highest-scoring deduplicated source, if any."""
+        if not sources:
+            return None
+        return max(sources, key=lambda s: s.score)
