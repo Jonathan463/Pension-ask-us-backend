@@ -109,7 +109,7 @@ pre-downloads the embedding model at build time, so the first `/ask` is fast.
 ## Frontend
 
 The React SPA lives in a separate repository:
-**[`pension-ask-us-web`](../pension-ask-us-web)** — deploys independently and
+**[`pension-ask-us-web`](https://github.com/Jonathan463/Pension-ask-us)** — deploys independently and
 points at this API via `VITE_API_BASE_URL`.
 
 ## License
