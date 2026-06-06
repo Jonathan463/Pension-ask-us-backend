@@ -51,8 +51,6 @@ class TextChunker:
             for idx, text in enumerate(chunks)
         ]
 
-    # ---- helpers ----
-
     def _carry_over(self, buffer: List[str]) -> tuple[List[str], int]:
         """Keep trailing sentences as overlap for the next chunk."""
         carry: List[str] = []

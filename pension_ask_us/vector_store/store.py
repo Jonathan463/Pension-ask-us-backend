@@ -40,7 +40,7 @@ class ChromaVectorStore(VectorStore):
                 name=collection_name,
                 metadata={"hnsw:space": "cosine"},
             )
-        except Exception as exc:  # noqa: BLE001 - normalised to domain error
+        except Exception as exc:
             raise VectorStoreError(
                 "Failed to initialise ChromaDB.",
                 details={"path": str(persist_dir), "cause": str(exc)},
@@ -61,7 +61,7 @@ class ChromaVectorStore(VectorStore):
                     for c in chunks
                 ],
             )
-        except Exception as exc:  # noqa: BLE001 - normalised to domain error
+        except Exception as exc:
             raise VectorStoreError(
                 "Failed to add chunks to the vector store.",
                 details={"count": len(chunks), "cause": str(exc)},
@@ -75,7 +75,7 @@ class ChromaVectorStore(VectorStore):
                 query_embeddings=[list(vector)],
                 n_results=top_k,
             )
-        except Exception as exc:  # noqa: BLE001 - normalised to domain error
+        except Exception as exc:
             raise VectorStoreError(
                 "Failed to query the vector store.",
                 details={"top_k": top_k, "cause": str(exc)},
@@ -96,7 +96,6 @@ class ChromaVectorStore(VectorStore):
                 text=doc or "",
                 position=int(meta.get("position", 0)),
             )
-            # Chroma returns cosine "distance"; convert to similarity score in [0, 1].
             score = max(0.0, 1.0 - float(distance))
             retrieved.append(RetrievedChunk(chunk=chunk, score=score))
         return retrieved
@@ -105,14 +104,13 @@ class ChromaVectorStore(VectorStore):
         try:
             self._client.delete_collection(self._collection_name)
         except Exception:
-            # Collection may not exist yet; that's fine.
             pass
         try:
             self._collection = self._client.get_or_create_collection(
                 name=self._collection_name,
                 metadata={"hnsw:space": "cosine"},
             )
-        except Exception as exc:  # noqa: BLE001 - normalised to domain error
+        except Exception as exc:
             raise VectorStoreError(
                 "Failed to recreate the vector store collection.",
                 details={"collection": self._collection_name, "cause": str(exc)},

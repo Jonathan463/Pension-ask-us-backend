@@ -38,7 +38,7 @@ class SentenceTransformerEmbedder(Embedder):
                 from sentence_transformers import SentenceTransformer
 
                 self._model = SentenceTransformer(self._model_name)
-            except Exception as exc:  # noqa: BLE001 - normalised to domain error
+            except Exception as exc:
                 raise EmbeddingError(
                     f"Failed to load embedding model '{self._model_name}'",
                     details={"cause": str(exc)},
@@ -56,7 +56,7 @@ class SentenceTransformerEmbedder(Embedder):
                 normalize_embeddings=True,
                 show_progress_bar=False,
             )
-        except Exception as exc:  # noqa: BLE001 - normalised to domain error
+        except Exception as exc:
             raise EmbeddingError(
                 "Failed to embed texts.",
                 details={"batch_size": len(texts), "cause": str(exc)},

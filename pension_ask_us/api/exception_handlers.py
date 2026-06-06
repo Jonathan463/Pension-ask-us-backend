@@ -21,10 +21,9 @@ def register_exception_handlers(app: FastAPI) -> None:
     """Attach all application exception handlers to ``app``."""
 
     @app.exception_handler(PensionAskUsError)
-    async def handle_app_error(  # type: ignore[unused-ignore]
+    async def handle_app_error(
         request: Request, exc: PensionAskUsError
     ) -> JSONResponse:
-        # 4xx are client-fixable -> log at warning; 5xx are server faults.
         log = logger.warning if exc.status_code < 500 else logger.error
         log(
             "%s on %s %s: %s",
@@ -36,7 +35,7 @@ def register_exception_handlers(app: FastAPI) -> None:
         return JSONResponse(status_code=exc.status_code, content=exc.to_dict())
 
     @app.exception_handler(Exception)
-    async def handle_unexpected(  # type: ignore[unused-ignore]
+    async def handle_unexpected(
         request: Request, exc: Exception
     ) -> JSONResponse:
         logger.exception(

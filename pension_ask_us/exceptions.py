@@ -35,8 +35,6 @@ class PensionAskUsError(Exception):
         }
 
 
-# ----- Service / domain layer -----
-
 class ServiceError(PensionAskUsError):
     """Base class for use-case / domain errors."""
 
@@ -93,8 +91,6 @@ class EmailNotConfiguredError(PensionAskUsError):
     error_code = "email_not_configured"
 
 
-# ----- Ingestion-pipeline layer -----
-
 class IngestionError(PensionAskUsError):
     """Base class for errors raised inside the ingestion pipeline."""
 
@@ -112,8 +108,6 @@ class ArticleFetchError(IngestionError):
     status_code = 502
     error_code = "article_fetch_failed"
 
-
-# ----- Infrastructure layer -----
 
 class VectorStoreError(PensionAskUsError):
     """The vector store backend failed."""

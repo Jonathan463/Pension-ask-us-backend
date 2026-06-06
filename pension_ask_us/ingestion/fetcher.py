@@ -47,7 +47,7 @@ class HttpArticleFetcher(ArticleFetcher):
     def close(self) -> None:
         self._client.close()
 
-    def __del__(self) -> None:  # best-effort cleanup
+    def __del__(self) -> None:
         try:
             self.close()
         except Exception:

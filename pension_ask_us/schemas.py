@@ -31,8 +31,6 @@ class RetrievedChunk(BaseModel):
     score: float
 
 
-# ----- API payloads -----
-
 class AskRequest(BaseModel):
     question: str = Field(..., min_length=2, description="Natural-language query")
     top_k: Optional[int] = Field(None, ge=1, le=20)

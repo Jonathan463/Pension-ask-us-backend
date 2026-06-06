@@ -91,7 +91,7 @@ def main(argv: list[str] | None = None) -> int:
         return _dispatch(args)
     except PensionAskUsError as exc:
         return _handle_app_error(exc)
-    except Exception:  # noqa: BLE001 - last-resort logger
+    except Exception:
         logger.exception("Unexpected error running command %s", args.command)
         return 2
 

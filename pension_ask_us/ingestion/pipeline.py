@@ -60,8 +60,6 @@ class IngestionPipeline:
             try:
                 html = self._fetcher.fetch(url)
             except ArticleFetchError as exc:
-                # Per-URL failures are recoverable: log and continue so a
-                # single bad URL doesn't abort the whole run.
                 logger.warning("Skipping %s: %s", url, exc.message)
                 continue
             if not html:

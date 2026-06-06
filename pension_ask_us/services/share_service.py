@@ -7,8 +7,6 @@ from ..email import EmailMessage, EmailSender
 from ..exceptions import InvalidEmailError
 from ..schemas import ShareRequest, ShareResponse
 
-# Pragmatic RFC-5322-ish check: catches obvious typos without rejecting
-# valid edge cases. Real validation happens at the SMTP server.
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 

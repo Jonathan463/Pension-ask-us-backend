@@ -19,5 +19,5 @@ class EmailSender(ABC):
     """Abstraction over the concrete email backend."""
 
     @abstractmethod
-    def send(self, message: EmailMessage) -> None:  # pragma: no cover - interface
+    def send(self, message: EmailMessage) -> None:
         """Deliver ``message`` or raise :class:`EmailDeliveryError`."""

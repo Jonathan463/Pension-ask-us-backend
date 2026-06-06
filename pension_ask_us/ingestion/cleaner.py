@@ -9,10 +9,8 @@ from bs4 import BeautifulSoup
 from ..schemas import Article
 
 
-# Tags whose contents are never useful text.
 _STRIP_TAGS = ("script", "style", "noscript", "iframe", "svg", "form", "nav", "footer")
 
-# CSS selectors most likely to contain the article body on the NHSBSA portal.
 _PRIMARY_SELECTORS = (
     "div.knowledge-article-content",
     "div.knowledge-article",
@@ -43,8 +41,6 @@ class HtmlCleaner:
 
         return Article(url=url, title=title or url, content=text)
 
-    # ---- helpers ----
-
     def _extract_title(self, soup: BeautifulSoup) -> str:
         for selector in ("h1", "title"):
             tag = soup.select_one(selector)
@@ -63,7 +59,6 @@ class HtmlCleaner:
         return body.get_text(separator="\n", strip=True)
 
     def _normalise_whitespace(self, text: str) -> str:
-        # Collapse runs of whitespace but preserve paragraph breaks.
         lines = [re.sub(r"[ \t]+", " ", ln).strip() for ln in text.splitlines()]
         lines = [ln for ln in lines if ln]
         return "\n".join(lines)

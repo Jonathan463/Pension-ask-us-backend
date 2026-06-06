@@ -82,7 +82,7 @@ class OpenAIGenerator(AnswerGenerator):
 
     def _ensure_client(self):
         if self._client is None:
-            from openai import OpenAI  # imported lazily so it's optional
+            from openai import OpenAI
 
             self._client = OpenAI(api_key=self._api_key)
         return self._client
