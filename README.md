@@ -58,7 +58,7 @@ python main.py serve --host 0.0.0.0 --port 8000
 python main.py ask "How much do I contribute to my NHS pension?"
 ```
 
-Swagger UI is available at <http://127.0.0.1:8000/docs>.
+Swagger UI is available at <http://localhost:8000/docs>.
 
 ## Configuration
 
